@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'TeamsController@index')->name('show-teams');
+Route::get('/teams/{team}', 'TeamsController@show')->name('team-info');
+Route::get('/players/{id}', 'PlayersController@show')->name('show-player');
