@@ -10,4 +10,6 @@ class Player extends Model
     {
         return $this->belongsTo(Teams::class);
     }
+
+
 }

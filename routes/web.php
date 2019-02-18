@@ -25,3 +25,6 @@ Route::group(['middleware' => ['guest']], function ()
     Route::get('/login', 'LoginController@create')->name('show-login');
     Route::post('/login', 'LoginController@store')->name('login');
 });
+
+
+Route::post('/teams/{id}/comments', 'TeamsController@addComment')->name('teams-comment');

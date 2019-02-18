@@ -10,4 +10,9 @@ class Teams extends Model
     {
         return $this->hasMany(Player::class, 'team_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'team_id');
+    }
 }

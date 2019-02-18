@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Teams;
 use Illuminate\Http\Request;
 
@@ -82,5 +83,26 @@ class TeamsController extends Controller
     public function destroy(Teams $teams)
     {
         //
+    }
+
+    public static function addComment(Request $request, $id)
+    {
+        $request->validate([
+            'content'=>'required|min:10'
+        ]);
+
+        $comment = Comment::create([
+            'team_id' => $id,
+            'user_id' => auth()->user()->id,
+            'content' => $request->content
+        ]);
+
+//        if ($comment->post->user)
+//        {
+//            Mail::to($comment->post->user)->send(new CommentRecieved(
+//                $comment->post, $comment
+//            ));
+//        }
+        return redirect()->route('team-info', ['id' => $id]);
     }
 }
