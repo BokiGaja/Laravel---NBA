@@ -16,11 +16,11 @@
     </div>
     <div class="d-flex justify-content-end align-items-center">
         @auth
-            <a class="btn btn-sm btn-outline-info btn-lg" href="">(Logout)</a>
+            <a class="btn btn-sm btn-outline-info btn-lg" href="{{ route('logout') }}">{{ auth()->user()->name }}(Logout)</a>
         @endauth
         @guest
-            <a class="btn btn-sm btn-outline-info btn-lg" href="">Sign up</a>
-            <a class="btn btn-sm btn-outline-info btn-lg" href="">Login</a>
+            <a class="btn btn-sm btn-outline-info btn-lg" href="{{ route('show-register') }}">Sign up</a>
+            <a class="btn btn-sm btn-outline-info btn-lg" href="{{ route('show-login') }}">Login</a>
         @endguest
     </div>
 </header>

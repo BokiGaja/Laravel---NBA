@@ -13,3 +13,13 @@
 Route::get('/', 'TeamsController@index')->name('show-teams');
 Route::get('/teams/{team}', 'TeamsController@show')->name('team-info');
 Route::get('/players/{id}', 'PlayersController@show')->name('show-player');
+
+Route::group(['middleware' => ['guest']], function ()
+{
+    Route::get('/register', 'RegisterController@create')->name('show-register');
+    Route::post('/register', 'RegisterController@store')->name('register');
+    Route::get('/login', 'LoginController@create')->name('show-login');
+    Route::post('/login', 'LoginController@store')->name('login');
+});
+
+Route::get('/logout', 'LoginController@logout')->name('logout');
