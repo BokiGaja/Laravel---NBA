@@ -10,9 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'TeamsController@index')->name('show-teams');
-Route::get('/teams/{team}', 'TeamsController@show')->name('team-info');
-Route::get('/players/{id}', 'PlayersController@show')->name('show-player');
+Route::group(['middleware' => ['auth']], function ()
+{
+    Route::get('/', 'TeamsController@index')->name('show-teams');
+    Route::get('/teams/{team}', 'TeamsController@show')->name('team-info');
+    Route::get('/players/{id}', 'PlayersController@show')->name('show-player');
+    Route::get('/logout', 'LoginController@logout')->name('logout');
+});
 
 Route::group(['middleware' => ['guest']], function ()
 {
@@ -21,5 +25,3 @@ Route::group(['middleware' => ['guest']], function ()
     Route::get('/login', 'LoginController@create')->name('show-login');
     Route::post('/login', 'LoginController@store')->name('login');
 });
-
-Route::get('/logout', 'LoginController@logout')->name('logout');

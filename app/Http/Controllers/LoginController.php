@@ -7,10 +7,15 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['logout']]);
+    }
+
     public function logout()
     {
         auth()->logout();
-        return redirect()->route('show-teams');
+        return redirect()->route('show-login');
     }
 
     public function create()
