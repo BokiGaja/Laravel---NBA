@@ -36,12 +36,13 @@ class TeamsController extends Controller
     {
         if (CommentService::commentValidate($request) === true)
         {
-            Comment::create([
+            $comment = Comment::create([
                 'team_id' => $id,
                 'user_id' => auth()->user()->id,
                 'content' => $request->content
             ]);
-
+            $team = Teams::find($id);
+            CommentService::sendMail($team, $comment);
             return redirect()->route('team-info', [
                 'id' => $id,
                 'badWord'=>''

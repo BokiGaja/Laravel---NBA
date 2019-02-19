@@ -10,7 +10,9 @@ namespace App\Services;
 
 
 use App\Comment;
+use App\Mail\CommentReceived;
 use App\Teams;
+use Illuminate\Support\Facades\Mail;
 
 class CommentService
 {
@@ -35,5 +37,10 @@ class CommentService
         }
 
         return true;
+    }
+
+    public static function sendMail(Teams $team, Comment $comment)
+    {
+        Mail::to($team->email)->send(new CommentReceived($team, $comment));
     }
 }
