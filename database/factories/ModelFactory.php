@@ -15,11 +15,33 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\User::class, function (Faker $faker) {
+    $verifyToken = bcrypt(str_shuffle('abcde'));
+    // Remove '/' so there will be no problem when calling url
+    $verifyToken = str_replace('/', '', $verifyToken);
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'password' => bcrypt('secret'), // secret
         'remember_token' => Str::random(10),
+        'verify_token' => $verifyToken
+    ];
+});
+
+$factory->define(\App\Teams::class, function (Faker $faker) {
+   return [
+        'name' => $faker->name,
+        'email' => $faker->email,
+        'address' => $faker->address,
+        'city' => $faker->city
+
+   ];
+});
+
+$factory->define(\App\Player::class, function (Faker $faker) {
+    return [
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'email' => $faker->email
     ];
 });
