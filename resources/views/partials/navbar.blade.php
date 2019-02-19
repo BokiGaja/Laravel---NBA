@@ -5,6 +5,7 @@
     <div style="margin-left: 100px">
         @auth
             <a href="{{ route('show-teams') }}" class="btn btn-info btn-lg">Teams</a>
+            <a href="{{ route('show-news') }}" class="btn btn-info btn-lg">News</a>
         @endauth
     </div>
     <div class="d-flex justify-content-end align-items-center">

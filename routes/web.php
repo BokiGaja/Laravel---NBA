@@ -30,3 +30,5 @@ Route::group(['middleware' => ['guest']], function ()
 
 Route::post('/teams/{id}/comments', 'TeamsController@addComment')->name('teams-comment');
 Route::get('/verify/{token}', 'RegisterController@verify')->name('verify-account');
+Route::get('/news', 'NewsController@index')->name('show-news');
+Route::get('/news/{id}', 'NewsController@show')->name('show-info');
