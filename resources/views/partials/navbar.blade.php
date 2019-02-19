@@ -11,7 +11,9 @@
         @endauth
     </div>
     <div style="margin-left: 100px">
-        <a href="{{ route('show-teams') }}" class="btn btn-info btn-lg">Teams</a>
+        @auth
+            <a href="{{ route('show-teams') }}" class="btn btn-info btn-lg">Teams</a>
+        @endauth
     </div>
     <div class="d-flex justify-content-end align-items-center">
         @auth

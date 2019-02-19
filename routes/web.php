@@ -10,7 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['middleware' => ['auth']], function ()
+
+Route::group(['middleware' => ['auth', 'verifiedAccount']], function ()
 {
     Route::get('/', 'TeamsController@index')->name('show-teams');
     Route::get('/teams/{team}', 'TeamsController@show')->name('team-info');
@@ -28,3 +29,4 @@ Route::group(['middleware' => ['guest']], function ()
 
 
 Route::post('/teams/{id}/comments', 'TeamsController@addComment')->name('teams-comment');
+Route::get('/verify/{token}', 'RegisterController@verify')->name('verify-account');

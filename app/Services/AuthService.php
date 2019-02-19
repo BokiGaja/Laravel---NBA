@@ -9,7 +9,9 @@
 namespace App\Services;
 
 
+use App\Mail\VerifyAccount;
 use App\User;
+use Illuminate\Support\Facades\Mail;
 
 class AuthService
 {
@@ -36,13 +38,19 @@ class AuthService
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6'
         ]);
+        $verifyToken = bcrypt(str_shuffle('abcde'));
+        $verifyToken = str_replace('/', '', $verifyToken);
         $data = $registerData->only([
             'email', 'name', 'password'
         ]);
         // Encryption with bcrypt helper
         $data['password'] = bcrypt($data['password']);
+        $data['verify_token'] = $verifyToken;
         // Creation
         $user = User::create($data);
+        Mail::to('nba@info.com')->send(new VerifyAccount(
+           $user->name, $verifyToken
+        ));
         // Login user
         auth()->login($user);
     }

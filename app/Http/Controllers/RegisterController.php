@@ -11,7 +11,7 @@ class RegisterController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['create', 'store']]);
+        $this->middleware('auth', ['except' => ['create', 'store', 'verify']]);
     }
     public function create()
     {
@@ -23,5 +23,12 @@ class RegisterController extends Controller
         AuthService::register($request);
         return redirect()->route('show-teams');
 
+    }
+
+    public function verify($token)
+    {
+            User::where('verify_token', $token)->update(array('email_verified_at' => now()));
+            session()->flash('message', 'You have verified your account');
+            return redirect()->route('show-login');
     }
 }

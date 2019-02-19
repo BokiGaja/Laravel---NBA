@@ -6,6 +6,11 @@
     <h1 class="pb-3 mb-4 font-italic border-bottom" style="text-align: center">
         Login
     </h1>
+    @if (session('message'))
+        <div class="alert alert-success" role="alert" style="text-align: center">
+            {{ session('message') }}
+        </div>
+    @endif
     <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="form-group row">
