@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Services\CommentService;
 use App\Teams;
+use App\User;
 use Illuminate\Http\Request;
 
 class TeamsController extends Controller
@@ -20,27 +22,6 @@ class TeamsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Teams  $teams
@@ -48,61 +29,29 @@ class TeamsController extends Controller
      */
     public function show(Teams $team)
     {
-        return view('teams.show', ['team' => $team]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Teams  $teams
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Teams $teams)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Teams  $teams
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Teams $teams)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Teams  $teams
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Teams $teams)
-    {
-        //
+        return view('teams.show', ['team' => $team, 'badWord'=>'']);
     }
 
     public static function addComment(Request $request, $id)
     {
-        $request->validate([
-            'content'=>'required|min:10'
-        ]);
+        if (CommentService::commentValidate($request) === true)
+        {
+            Comment::create([
+                'team_id' => $id,
+                'user_id' => auth()->user()->id,
+                'content' => $request->content
+            ]);
 
-        $comment = Comment::create([
-            'team_id' => $id,
-            'user_id' => auth()->user()->id,
-            'content' => $request->content
-        ]);
+            return redirect()->route('team-info', [
+                'id' => $id,
+                'badWord'=>''
+            ]);
+        }
 
-//        if ($comment->post->user)
-//        {
-//            Mail::to($comment->post->user)->send(new CommentRecieved(
-//                $comment->post, $comment
-//            ));
-//        }
-        return redirect()->route('team-info', ['id' => $id]);
+        return view('teams.show', [
+            'team' => Teams::find($id),
+            'badWord' => CommentService::commentValidate($request)
+            ]);
+
     }
 }

@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['create', 'store', 'verify']]);
     }
+
     public function create()
     {
         return view('auth.register');
@@ -22,7 +24,6 @@ class RegisterController extends Controller
     {
         AuthService::register($request);
         return redirect()->route('show-teams');
-
     }
 
     public function verify($token)

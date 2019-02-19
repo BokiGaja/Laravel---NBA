@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 
 class AuthService
 {
+
     public static function login($loginData)
     {
         $loginData->validate([
@@ -39,6 +40,7 @@ class AuthService
             'password' => 'required|min:6'
         ]);
         $verifyToken = bcrypt(str_shuffle('abcde'));
+        // Remove '/' so there will be no problem when calling url
         $verifyToken = str_replace('/', '', $verifyToken);
         $data = $registerData->only([
             'email', 'name', 'password'
@@ -48,7 +50,7 @@ class AuthService
         $data['verify_token'] = $verifyToken;
         // Creation
         $user = User::create($data);
-        Mail::to('nba@info.com')->send(new VerifyAccount(
+        Mail::to($registerData->email)->send(new VerifyAccount(
            $user->name, $verifyToken
         ));
         // Login user
