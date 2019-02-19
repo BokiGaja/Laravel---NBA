@@ -25,6 +25,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'password' => bcrypt('secret'), // secret
         'remember_token' => Str::random(10),
         'verify_token' => $verifyToken
+
     ];
 });
 
