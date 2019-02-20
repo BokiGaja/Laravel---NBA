@@ -9,8 +9,8 @@
             <p class="card-text">{{ $news->content }}</p>
             <p style="font-style: italic;">by</p>
             {{-- We get users name in Post Model--}}
-            <h5>{{ auth()->user()->find($news->user_id)->name }}</h5>
-            <h5>{{ auth()->user()->find($news->user_id)->email }}</h5>
+            <h5>{{ $news->user->name}}</h5>
+            <h5>{{ $news->user->email }}</h5>
             <a href="{{ route('show-news') }}" class="btn btn-primary">Go back</a>
         </div>
     </div>

@@ -46,3 +46,12 @@ $factory->define(\App\Player::class, function (Faker $faker) {
         'email' => $faker->email
     ];
 });
+
+$factory->define(\App\News::class, function (Faker $faker) {
+    $user = \App\User::inRandomOrder()->first();
+    return [
+        'title' => $faker->realText(30),
+        'content' => implode(' ', $faker->sentences(15)),
+        'user_id' => $user->id
+    ];
+});
