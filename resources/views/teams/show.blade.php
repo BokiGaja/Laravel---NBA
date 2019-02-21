@@ -15,6 +15,7 @@
                 <a href="{{ route(('show-player'), ['id' => $player->id]) }}" class="btn btn-success">{{ $player->first_name }}</a>
             @endforeach
             <hr>
+            <a href="{{ route(('team-news'), ['team' => $team->name ]) }}" class="btn btn-dark">Show news</a>
             <a href="{{ route('show-teams') }}" class="btn btn-primary">Go back</a>
         </div>
     </div>

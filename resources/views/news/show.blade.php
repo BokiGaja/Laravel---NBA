@@ -11,6 +11,13 @@
             {{-- We get users name in Post Model--}}
             <h5>{{ $news->user->name}}</h5>
             <h5>{{ $news->user->email }}</h5>
+            <hr>
+            <p style="font-style: italic;">Related to teams:</p>
+            @foreach($teams as $team)
+                <a href="{{ route(('team-info'), ['id' => $team->id]) }}">{{ $team->name }}</a>
+                <br>
+            @endforeach
+            <hr>
             <a href="{{ route('show-news') }}" class="btn btn-primary">Go back</a>
         </div>
     </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\News;
+use App\NewsTeams;
 use App\Services\CommentService;
 use App\Teams;
 use App\User;
@@ -32,7 +34,7 @@ class TeamsController extends Controller
         return view('teams.show', ['team' => $team, 'badWord'=>'']);
     }
 
-    public static function addComment(Request $request, $id)
+    public function addComment(Request $request, $id)
     {
         if (CommentService::commentValidate($request) === true)
         {
@@ -54,5 +56,17 @@ class TeamsController extends Controller
             'badWord' => CommentService::commentValidate($request)
             ]);
 
+    }
+
+    public function teamNews($teamName)
+    {
+        $team = Teams::where('name', $teamName)->first();
+        $newsId = [];
+        foreach ($team->newsTeams as $teamNews)
+        {
+            array_push($newsId, $teamNews->news_id);
+        }
+        $news = News::where($newsId);
+        return view('news.team-news', [ 'news' => $news]);
     }
 }

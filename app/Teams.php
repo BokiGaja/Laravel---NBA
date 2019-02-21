@@ -15,4 +15,9 @@ class Teams extends Model
     {
         return $this->hasMany(Comment::class, 'team_id');
     }
+
+    public function newsTeams()
+    {
+        return $this->hasMany(NewsTeams::class, 'team_id');
+    }
 }
