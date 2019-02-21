@@ -13,7 +13,8 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::orderBy('id', 'DESC')->paginate(10);
-        return view('news.index', ['news' => $news]);
+        $teams = Teams::all();
+        return view('news.index', ['news' => $news, 'teams' => $teams]);
     }
 
     public function show($id)

@@ -17,14 +17,8 @@
     <link href="starter-template.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="overflow-x: hidden">
 @include('partials.navbar')
-<main role="main" class="container">
-    <div class="starter-template">
         @yield('content')
-    </div>
-
-</main><!-- /.container -->
-
 </body>
 </html>

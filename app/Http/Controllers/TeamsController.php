@@ -66,7 +66,7 @@ class TeamsController extends Controller
         {
             array_push($newsId, $teamNews->news_id);
         }
-        $news = News::where($newsId);
+        $news = News::where('id',$newsId)->get();
         return view('news.team-news', [ 'news' => $news]);
     }
 }
