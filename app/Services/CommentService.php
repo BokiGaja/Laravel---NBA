@@ -39,6 +39,15 @@ class CommentService
         return true;
     }
 
+    public static function createComment($commentData, $id)
+    {
+        return Comment::create([
+            'team_id' => $id,
+            'user_id' => auth()->user()->id,
+            'content' => $commentData->content
+        ]);
+    }
+
     public static function sendMail(Teams $team, Comment $comment)
     {
         Mail::to($team->email)->send(new CommentReceived($team, $comment));

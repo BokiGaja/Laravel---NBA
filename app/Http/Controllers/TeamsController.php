@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
-use App\News;
-use App\NewsTeams;
 use App\Services\CommentService;
+use App\Services\TeamsService;
 use App\Teams;
-use App\User;
 use Illuminate\Http\Request;
 
 class TeamsController extends Controller
@@ -38,11 +35,7 @@ class TeamsController extends Controller
     {
         if (CommentService::commentValidate($request) === true)
         {
-            $comment = Comment::create([
-                'team_id' => $id,
-                'user_id' => auth()->user()->id,
-                'content' => $request->content
-            ]);
+            $comment = CommentService::createComment($request, $id);
             $team = Teams::find($id);
             CommentService::sendMail($team, $comment);
             return redirect()->route('team-info', [
@@ -60,13 +53,6 @@ class TeamsController extends Controller
 
     public function teamNews($teamName)
     {
-        $team = Teams::where('name', $teamName)->first();
-        $newsId = [];
-        foreach ($team->newsTeams as $teamNews)
-        {
-            array_push($newsId, $teamNews->news_id);
-        }
-        $news = News::where('id',$newsId)->get();
-        return view('news.team-news', [ 'news' => $news]);
+        return view('news.team-news', [ 'news' => TeamsService::newsOfTeam($teamName)]);
     }
 }
