@@ -3,6 +3,11 @@
 @section('title', 'News')
 
 @section('content')
+    @if (session('message'))
+        <div class="alert alert-success" role="alert" style="text-align: center">
+            {{ session('message') }}
+        </div>
+    @endif
     <h2 class="pb-3 mb-4 font-italic border-bottom" style="margin-top: 30px; text-align: center">News</h2>
     <div class="row d-flex justify-content-center" style="margin-top: 20px; text-align: center">
         @foreach($news as $info)
@@ -17,6 +22,6 @@
                 </div>
             </div>
         @endforeach
-        <div style="margin-top: 10px">{{ $news->links() }}</div>
     </div>
+    <div style="margin-top: 10px">{{ $news->links() }}</div>
 @endsection

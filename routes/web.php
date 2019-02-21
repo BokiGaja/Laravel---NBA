@@ -17,6 +17,8 @@ Route::group(['middleware' => ['auth', 'verifiedAccount']], function ()
     Route::get('/teams/{team}', 'TeamsController@show')->name('team-info');
     Route::get('/players/{id}', 'PlayersController@show')->name('show-player');
     Route::get('/logout', 'LoginController@logout')->name('logout');
+    Route::get('/news/create', 'NewsController@create')->name('show-create-news');
+    Route::post('/news', 'NewsController@store')->name('store-news');
 });
 
 Route::group(['middleware' => ['guest']], function ()
