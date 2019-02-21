@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\CommentService;
 use App\Services\TeamsService;
-use App\Teams;
+use App\Team;
 use Illuminate\Http\Request;
 
 class TeamsController extends Controller
@@ -16,17 +16,17 @@ class TeamsController extends Controller
      */
     public function index()
     {
-        $teams = Teams::all();
+        $teams = Team::all();
         return view('teams.index', ['teams' => $teams]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Teams  $teams
+     * @param  \App\Team  $teams
      * @return \Illuminate\Http\Response
      */
-    public function show(Teams $team)
+    public function show(Team $team)
     {
         return view('teams.show', ['team' => $team, 'badWord'=>'']);
     }
@@ -36,7 +36,7 @@ class TeamsController extends Controller
         if (CommentService::commentValidate($request) === true)
         {
             $comment = CommentService::createComment($request, $id);
-            $team = Teams::find($id);
+            $team = Team::find($id);
             CommentService::sendMail($team, $comment);
             return redirect()->route('team-info', [
                 'id' => $id,
@@ -45,10 +45,9 @@ class TeamsController extends Controller
         }
 
         return view('teams.show', [
-            'team' => Teams::find($id),
+            'team' => Team::find($id),
             'badWord' => CommentService::commentValidate($request)
             ]);
-
     }
 
     public function teamNews($teamName)

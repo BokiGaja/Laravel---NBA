@@ -3,7 +3,7 @@
 namespace App\Mail;
 
 use App\Comment;
-use App\Teams;
+use App\Team;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -20,7 +20,7 @@ class CommentReceived extends Mailable
      *
      * @return void
      */
-    public function __construct(Teams $team, Comment $comment)
+    public function __construct(Team $team, Comment $comment)
     {
         $this->team = $team;
         $this->comment = $comment;

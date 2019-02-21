@@ -17,6 +17,6 @@ class Comment extends Model
 
     public function team()
     {
-        $this->belongsTo(Teams::class);
+        $this->belongsTo(Team::class);
     }
 }

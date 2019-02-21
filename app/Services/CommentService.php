@@ -11,7 +11,7 @@ namespace App\Services;
 
 use App\Comment;
 use App\Mail\CommentReceived;
-use App\Teams;
+use App\Team;
 use Illuminate\Support\Facades\Mail;
 
 class CommentService
@@ -48,7 +48,7 @@ class CommentService
         ]);
     }
 
-    public static function sendMail(Teams $team, Comment $comment)
+    public static function sendMail(Team $team, Comment $comment)
     {
         Mail::to($team->email)->send(new CommentReceived($team, $comment));
     }

@@ -29,7 +29,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(\App\Teams::class, function (Faker $faker) {
+$factory->define(\App\Team::class, function (Faker $faker) {
    return [
         'name' => $faker->name,
         'email' => $faker->email,

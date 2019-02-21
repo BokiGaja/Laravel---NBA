@@ -11,20 +11,10 @@ namespace App\Services;
 
 use App\News;
 use App\NewsTeams;
-use App\Teams;
+use App\Team;
 
 class NewsService
 {
-    public static function findTeams($news)
-    {
-        $teamId = [];
-        foreach ($news->newsTeams as $teamNews)
-        {
-            array_push($teamId, $teamNews->team_id);
-        }
-        return Teams::findOrFail($teamId);
-    }
-
     public static function newNews($newsData)
     {
         $newsData->validate([

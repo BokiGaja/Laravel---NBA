@@ -8,8 +8,11 @@ class Player extends Model
 {
     public function team()
     {
-        return $this->belongsTo(Teams::class);
+        return $this->belongsTo(Team::class);
     }
 
-
+    public function news()
+    {
+        return $this->belongsToMany(News::class);
+    }
 }

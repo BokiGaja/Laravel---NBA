@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\News;
 use App\NewsTeams;
 use App\Services\NewsService;
-use App\Teams;
+use App\Team;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -13,21 +13,20 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::orderBy('id', 'DESC')->paginate(10);
-        $teams = Teams::all();
+        $news = News::with('user')->orderBy('id', 'DESC')->paginate(10);
+        $teams = Team::all();
         return view('news.index', ['news' => $news, 'teams' => $teams]);
     }
 
     public function show($id)
     {
         $news = News::findOrFail($id);
-        $teams = NewsService::findTeams($news);
-        return view('news.show', ['news' => $news, 'teams' => $teams]);
+        return view('news.show', ['news' => $news, 'teams' => $news->teams]);
     }
 
     public function create()
     {
-        $teams = Teams::all();
+        $teams = Team::all();
         return view('news.create', ['teams' => $teams]);
     }
 

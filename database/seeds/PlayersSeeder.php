@@ -12,7 +12,7 @@ class PlayersSeeder extends Seeder
     public function run()
     {
         factory(\App\Player::class, 20)->create()->each(function ($player) {
-            $team = \App\Teams::inRandomOrder()->first();
+            $team = \App\Team::inRandomOrder()->first();
             $player->team_id = $team->id;
             $player->save();
         });

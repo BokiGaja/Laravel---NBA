@@ -10,18 +10,13 @@ namespace App\Services;
 
 
 use App\News;
-use App\Teams;
+use App\Team;
 
 class TeamsService
 {
     public static function newsOfTeam($teamName)
     {
-        $team = Teams::where('name', $teamName)->first();
-        $newsId = [];
-        foreach ($team->newsTeams as $teamNews)
-        {
-            array_push($newsId, $teamNews->news_id);
-        }
-        return News::where('id',$newsId)->get();
+        $team = Team::with('news')->where('name', $teamName)->first();
+        return $team->news;
     }
 }
