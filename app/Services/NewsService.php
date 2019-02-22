@@ -27,4 +27,17 @@ class NewsService
             'content' => $newsData->content
         ]);
     }
+
+    public static function editNews($newsData)
+    {
+        $newsData->update(request()->validate([
+            'title' => 'required|min:5',
+            'content' => 'required'
+        ]));
+    }
+
+    public static function flashMessage($message)
+    {
+        session()->flash('message', $message);
+    }
 }

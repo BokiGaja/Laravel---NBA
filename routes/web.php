@@ -19,6 +19,9 @@ Route::group(['middleware' => ['auth', 'verifiedAccount']], function ()
     Route::get('/logout', 'LoginController@logout')->name('logout');
     Route::get('/news/create', 'NewsController@create')->name('show-create-news');
     Route::post('/news', 'NewsController@store')->name('store-news');
+    Route::get('news/{news}/edit', 'NewsController@edit')->name('edit-news');
+    Route::put('news/{news}', 'NewsController@update')->name('update-news');
+    Route::delete('news/{news}', 'NewsController@destroy')->name('delete-news');
 });
 
 Route::group(['middleware' => ['guest']], function ()

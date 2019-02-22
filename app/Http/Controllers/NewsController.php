@@ -34,7 +34,26 @@ class NewsController extends Controller
     {
         $news = NewsService::newNews($request);
         $news->teams()->attach(\request('team'));
-        session()->flash('message', 'Thank you for publishing article on www.nba.com');
+        NewsService::flashMessage('Thank you for publishing article on www.nba.com');
+        return redirect(route('show-news'));
+    }
+
+    public function edit(News $news)
+    {
+        return view('news.edit', compact('news'));
+    }
+
+    public function update(News $news)
+    {
+        NewsService::editNews($news);
+        NewsService::flashMessage('Your news has been updated');
+        return redirect('/news/'.$news->id);
+    }
+
+    public function destroy($id)
+    {
+        News::findOrFail($id)->delete();
+        NewsService::flashMessage('Your news has been deleted');
         return redirect(route('show-news'));
     }
 }

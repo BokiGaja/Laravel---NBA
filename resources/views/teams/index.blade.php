@@ -4,12 +4,12 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
         @if (session('message'))
             <div class="alert alert-success" role="alert" style="text-align: center">
                 {{ session('message') }}
             </div>
         @endif
+        <div class="row">
         @foreach($teams as $team)
             <div class="card col-4" style="width: 18rem; margin-top: 10px; margin-left: 10px; background-color: lightcyan; text-align: center">
                 <div class="card-body">
