@@ -19,6 +19,9 @@
 
 <body style="overflow-x: hidden">
 @include('partials.navbar')
-        @yield('content')
+<div class="row">
+    @include('partials.sidebar')
+    @yield('content')
+</div>
 </body>
 </html>

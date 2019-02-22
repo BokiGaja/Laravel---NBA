@@ -33,7 +33,7 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $news = NewsService::newNews($request);
-        NewsService::connectWithTeams($request, $news);
+        $news->teams()->attach(\request('team'));
         session()->flash('message', 'Thank you for publishing article on www.nba.com');
         return redirect(route('show-news'));
     }

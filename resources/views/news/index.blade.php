@@ -4,13 +4,13 @@
 
 
 @section('content')
+    <div class="container">
     @if (session('message'))
         <div class="alert alert-success" role="alert" style="text-align: center">
             {{ session('message') }}
         </div>
     @endif
     <div class="row">
-    @include('partials.sidebar')
     <div class="container">
     <h2 class="pb-3 mb-4 font-italic border-bottom" style="margin-top: 30px; text-align: center">News</h2>
     <div class="row d-flex justify-content-center" style="margin-top: 20px; text-align: center">
@@ -30,5 +30,5 @@
     <div style="margin-top: 10px">{{ $news->links() }}</div>
     </div>
     </div>
-
+    </div>
 @endsection

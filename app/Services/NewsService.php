@@ -27,15 +27,4 @@ class NewsService
             'content' => $newsData->content
         ]);
     }
-
-    public static function connectWithTeams($request, $news)
-    {
-        $teamsId = $request->input('team');
-        foreach ($teamsId as $team) {
-            NewsTeams::create([
-                'news_id' => $news->id,
-                'team_id' => $team
-            ]);
-        }
-    }
 }
